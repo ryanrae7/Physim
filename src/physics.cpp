@@ -16,7 +16,10 @@ class Physics{
             velocity = sf::Vector2f(0.f, 0.f);
         }
         void updateGravity(){
-            velocity.y += gravity;
+            if(velocity.y < 9.8f){
+                velocity.y += gravity;
+                velocity.x += gravity;
+            }
         }
 
         // Return velocity
