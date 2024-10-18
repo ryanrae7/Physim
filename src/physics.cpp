@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
 
-
+/*
+    Can defenitely incorpoate delta time instead of 1.0f/60.0f ***
+*/
 
 class Physics {
     sf::Vector2f velocity;
