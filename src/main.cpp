@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <stdio.h>
+#include <iostream>
 #include "physics.cpp"
 
 /*
@@ -11,12 +13,11 @@
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1980, 1080), "SFML Windows");
+    sf::Text numberCircleText; 
 
     // Create vector for circles to store each object 
     std::vector<sf::CircleShape> circleVector;
-
-    // With physics class
-    Physics physics (0.1f);
+    std::vector<Physics> physicsVector;
 
     // Set windows at this position
     window.setPosition(sf::Vector2i(0.f,0.f));
@@ -35,12 +36,17 @@ int main() {
                         std::cout << "Space Bar has been pressed!" << std::endl;
                         
                         // Create new circle
-                        sf::CircleShape circle(50.f);  // Radius 50
+                        sf::CircleShape circle(25.0f);  // radius 25
                         circle.setFillColor(sf::Color::Red);
-                        circle.setPosition(990.f, 0.f);
+                        //circle.setPosition(1980.0f, 1080.0f);
+
+                        // With physics class
+                        Physics physics (9.8f, sf::Vector2f(100.0f, -100.0f), sf::Vector2f(0.0f, 1080.0f));
+
 
                         // Add to the vector at the end
                         circleVector.push_back(circle);
+                        physicsVector.push_back(physics);
                     }
             }
         }
@@ -49,14 +55,19 @@ int main() {
         
         
         // Display stored circle Vectors
-        for(sf::CircleShape& circle : circleVector){
-            window.draw(circle);
-            physics.updateGravity();
-            physics.applyToObject(circle);
+        for(int i = 0; i < circleVector.size(); ++i){
+            window.draw(circleVector[i]);
+            physicsVector[i].applyToObject(circleVector[i], 1.0/60.0);
             
+            // Update print statement
+            numberCircleText.setString("# of Circles: %d" + std::to_string(i + 1));
+            numberCircleText.setPosition(0,0); // Make position at the top
+            numberCircleText.setFillColor(sf::Color::White);
+            window.draw(numberCircleText);
+
             // Debug statements
-            std::cout <<"Velocity in the x is: " << physics.getVelocity().x << std::endl;
-            std::cout <<"Velocity in the y is: " << physics.getVelocity().y << std::endl;
+            std::cout <<"Velocity in the x is: " << physicsVector[i].getVelocity().x << std::endl;
+            std::cout <<"Velocity in the y is: " << physicsVector[i].getVelocity().y << std::endl;
         }
 
         window.display();
