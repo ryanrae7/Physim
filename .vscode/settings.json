@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "xlocmes": "cpp"
+        "xlocmes": "cpp",
+        "thread": "cpp"
     }
 }

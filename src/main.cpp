@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdio.h>
 #include <iostream>
+#include <ctime>
 #include "physics.cpp"
 
 /*
@@ -18,6 +19,11 @@ int main() {
     // Create vector for circles to store each object 
     std::vector<sf::CircleShape> circleVector;
     std::vector<Physics> physicsVector;
+
+    // Initalize time
+    sf::Clock clock;
+    sf::Clock circleSpawnClock;
+    float spawnInterval = 0.05f;
 
     // Set windows at this position
     window.setPosition(sf::Vector2i(0.f,0.f));
@@ -36,20 +42,38 @@ int main() {
                         std::cout << "Space Bar has been pressed!" << std::endl;
                         
                         // Create new circle
-                        sf::CircleShape circle(25.0f);  // radius 25
+                        sf::CircleShape circle(5.0f);  // radius 25
                         circle.setFillColor(sf::Color::Red);
                         //circle.setPosition(1980.0f, 1080.0f);
 
                         // With physics class
-                        Physics physics (9.8f, sf::Vector2f(100.0f, -100.0f), sf::Vector2f(0.0f, 1080.0f));
+                        Physics physics (9.8f, sf::Vector2f(100.0f, -150.0f), sf::Vector2f(0.0f, 1080.0f));
 
 
                         // Add to the vector at the end
                         circleVector.push_back(circle);
                         physicsVector.push_back(physics);
                     }
+                    break;  
             }
         }
+
+        int i = 0;
+        if(circleSpawnClock.getElapsedTime().asSeconds() > spawnInterval){
+            circleSpawnClock.restart(); // restart to get back into the if statement
+            // Create new circle
+            sf::CircleShape circle(10.0f);  // radius 25
+            circle.setFillColor(sf::Color::Red);
+            //circle.setPosition(1980.0f, 1080.0f);
+
+            // With physics class
+            Physics physics (9.8f, sf::Vector2f(100.0f, -100.0f), sf::Vector2f(0.0f, 1080.0f));
+
+            // Add to the vector at the end
+            circleVector.push_back(circle);
+            physicsVector.push_back(physics);
+        }
+
 
         window.clear();
         
@@ -66,8 +90,8 @@ int main() {
             window.draw(numberCircleText);
 
             // Debug statements
-            std::cout <<"Velocity in the x is: " << physicsVector[i].getVelocity().x << std::endl;
-            std::cout <<"Velocity in the y is: " << physicsVector[i].getVelocity().y << std::endl;
+            //std::cout <<"Velocity in the x is: " << physicsVector[i].getVelocity().x << std::endl;
+            //std::cout <<"Velocity in the y is: " << physicsVector[i].getVelocity().y << std::endl;
         }
 
         window.display();
