@@ -40,7 +40,6 @@ int main() {
         }
 
         
-        int i = 0;
         if(circleSpawnClock.getElapsedTime().asSeconds() > spawnInterval){
             circleSpawnClock.restart(); // restart to get back into the if statement
             // Create new circle
@@ -49,12 +48,13 @@ int main() {
             //circle.setPosition(1980.0f, 1080.0f);
 
             // With physics class
-            float x_velocity_random = rand() % 200 + (201);
-            float y_velocity_random = rand() % 200 + (-201);
+            float x_velocity_random = rand() % 200 + (101);
+            float y_velocity_random = rand() % 200 + (-101);
 
-            Physics physics (9.8f, sf::Vector2f(x_velocity_random, y_velocity_random), sf::Vector2f(50.0f, 50.0f), pi/2, 1.0/60.0);
+            Physics physics (9.8f, sf::Vector2f(x_velocity_random, y_velocity_random), sf::Vector2f(5.0f, 5.0f), pi/2, 1.0/60.0);
 
             // Initalize collision
+            /*
             Collision collision1(physics, 5.0f);  
             Collision collision2(physics, 5.0f);
 
@@ -63,6 +63,8 @@ int main() {
             }else{
                 std::cout << "No collision" << std::endl;
             }
+            */
+
 
             // Add to the vector at the end
             circleVector.push_back(circle);
@@ -73,11 +75,18 @@ int main() {
 
         window.clear();
         
+        
         // Display stored circle Vectors
-        for(int i = 0; i < circleVector.size(); ++i){
+        int i = 0;
+        while (i < circleVector.size()){
+            if(i == 200) break; // change number of circles you want to "spawn" into your window
+
             window.draw(circleVector[i]);
             physicsVector[i].applyToObject(circleVector[i]);
+            //std::cout << "Number of objects: " << i + 1 << std::endl;
+            ++i;
         }
+
 
         if(!circleVector.empty()){
             sf::Vector2f position = circleVector[0].getPosition();
