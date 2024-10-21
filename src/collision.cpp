@@ -33,6 +33,8 @@ class Collision{
 
             return distance < (radius + etc.radius);
         }
+        
+        
 };
 
 

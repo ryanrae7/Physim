@@ -52,7 +52,7 @@ int main() {
             float x_velocity_random = rand() % 200 + (201);
             float y_velocity_random = rand() % 200 + (-201);
 
-            Physics physics (9.8f, sf::Vector2f(x_velocity_random, y_velocity_random), sf::Vector2f(0.0f, 1080.0f), pi/2, 1.0/60.0);
+            Physics physics (9.8f, sf::Vector2f(x_velocity_random, y_velocity_random), sf::Vector2f(50.0f, 50.0f), pi/2, 1.0/60.0);
 
             // Initalize collision
             Collision collision1(physics, 5.0f);  

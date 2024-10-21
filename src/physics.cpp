@@ -18,6 +18,8 @@ class Physics {
     float gravity;
     float angle;
     float time;
+    float radius;
+    float windowHeight, windowWidth;
 
     public:
         Physics(float g, sf::Vector2f initialVelocity, sf::Vector2f initialPosition, float theta, float timestep){
@@ -27,6 +29,9 @@ class Physics {
             position = initialPosition;
             angle = theta;
             time = timestep;
+            windowHeight = 1080.0f;
+            windowWidth = 1980.0f;
+            radius = 5;
         }
 
         void applyVelocity() {
@@ -36,6 +41,16 @@ class Physics {
             // Update position based on velocity
             position.x += velocity.x * time;
             position.y += velocity.y * time;
+
+
+            // If reach end of border, change velocity.
+            if(position.x - radius < 0 || position.x + radius > windowWidth){
+                velocity.x = -velocity.x;
+                
+            }
+            if(position.y - radius < 0 || position.y + radius > windowHeight){
+                velocity.y = -velocity.y;
+            }
         }
 
         sf::Vector2f getVelocity() const {
