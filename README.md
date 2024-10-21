@@ -12,7 +12,7 @@ This project is a simple physics simulation created using SFML in C++. For now, 
 ## Installation
 1. **Clone the Repository**:
     ```sh
-    git clone https://github.com/yourusername/PhysicsSimulation.git
+    git clone https://github.com/yourusername/Physim.git
     ```
 2. **Navigate to the Project Directory**:
     ```sh
