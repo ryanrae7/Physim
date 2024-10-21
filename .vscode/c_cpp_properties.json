@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/SFML-2.6.1/include",
-                "C:/SFML-2.6.1/lib"
+                "C:/SFML-2.6.1/lib",
+                "C:/Users/Ryan Gae/Documents/Coding/C++/Physim/text"
             ],
             "defines": [
                 "_DEBUG",
