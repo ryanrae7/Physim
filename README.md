@@ -16,7 +16,7 @@ This project is a simple physics simulation created using SFML in C++. For now, 
     ```
 2. **Navigate to the Project Directory**:
     ```sh
-    cd PhysicsSimulation
+    cd src
     ```
 3. **Compile the Project**:
     ```sh
