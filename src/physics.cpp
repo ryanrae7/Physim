@@ -42,7 +42,6 @@ class Physics {
             position.x += velocity.x * time;
             position.y += velocity.y * time;
 
-
             // If reach end of border, change velocity.
             if(position.x - radius < 0 || position.x + radius > windowWidth){
                 velocity.x = -velocity.x;
@@ -55,6 +54,11 @@ class Physics {
 
         sf::Vector2f getVelocity() const {
             return velocity;
+        }
+
+        // Use this to swap velocity
+        void set_velocity(sf::Vector2f newVelocity){
+            velocity = newVelocity;
         }
 
         sf::Vector2f getPosition() {

@@ -33,6 +33,18 @@ class Collision{
 
             return distance < (radius + etc.radius);
         }
+
+        bool IsPointInCircle(Collision& etc)
+        {
+            return ((position_x - etc.position_x) * (position_x - etc.position_x) + (position_y - etc.position_y) * (position_y - etc.position_y)) < radius * radius;
+            
+        }
+
+        // Update position
+        void update_position(Physics positional){
+            position_x = positional.getPosition().x;
+            position_y = positional.getPosition().y;
+        }
         
         
 };

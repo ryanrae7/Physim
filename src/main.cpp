@@ -19,6 +19,7 @@ int main() {
     // Create vector for circles to store each object 
     std::vector<sf::CircleShape> circleVector;
     std::vector<Physics> physicsVector;
+    std::vector<Collision> collisionVector;
 
     // Initalize time
     sf::Clock clock;
@@ -53,22 +54,10 @@ int main() {
 
             Physics physics (9.8f, sf::Vector2f(x_velocity_random, y_velocity_random), sf::Vector2f(5.0f, 5.0f), pi/2, 1.0/60.0);
 
-            // Initalize collision
-            /*
-            Collision collision1(physics, 5.0f);  
-            Collision collision2(physics, 5.0f);
-
-            if (collision1.is_colliding(collision2)){
-                std::cout << "Oh, we collided" << std::endl;
-            }else{
-                std::cout << "No collision" << std::endl;
-            }
-            */
-
-
             // Add to the vector at the end
             circleVector.push_back(circle);
             physicsVector.push_back(physics);
+            collisionVector.push_back(Collision(physics, circle.getRadius()));
         }
         
 
@@ -78,14 +67,37 @@ int main() {
         
         // Display stored circle Vectors
         int i = 0;
-        while (i < circleVector.size()){
-            if(i == 200) break; // change number of circles you want to "spawn" into your window
-
+        while (i < circleVector.size()) {
+            if (i == 50) break; // change number of circles you want to "spawn" into your window
             window.draw(circleVector[i]);
             physicsVector[i].applyToObject(circleVector[i]);
             //std::cout << "Number of objects: " << i + 1 << std::endl;
             ++i;
         }
+
+
+
+        /*
+        
+            CODE DOESN'T WORK!!!!
+        
+        */
+        // Check for collisions
+        int k = 0;
+        while (k < collisionVector.size()) {
+            int j = k + 1;
+            while (j < collisionVector.size()) {
+                if (collisionVector[k].IsPointInCircle(collisionVector[j])) {
+                    std::cout << "Collision detected between circle " << k << " and circle " << j << std::endl;
+                    sf::Vector2f tempVelocity = physicsVector[k].getVelocity();
+                    physicsVector[k].set_velocity(physicsVector[j].getVelocity());
+                    physicsVector[j].set_velocity(tempVelocity);
+                }
+                ++j;
+            }
+            ++k; // Corrected increment from `i` to `k`
+        }
+
 
 
         if(!circleVector.empty()){
